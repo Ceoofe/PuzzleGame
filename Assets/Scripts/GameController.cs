@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -16,11 +17,13 @@ public class GameController : MonoBehaviour
     Image cardColor2;
     Button cardBut2;
 
-
+    TMP_Text scoreText;
+    int score = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        scoreText = transform.Find("Score/ScoreText").GetComponent<TMP_Text>();
+        scoreText.text = "Score: " + score; // Updates score UI
     }
 
     // Update is called once per frame
@@ -31,11 +34,21 @@ public class GameController : MonoBehaviour
             // 16 Cards
             // No timer
             // 5 Lives
+
         }
-        // hard mode
-        // 16 cards
-        // Timer
-        // 3 Lives
+        else
+        {
+            // hard mode
+            // 16 cards
+            // Timer
+            // 3 Lives
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     public void Card(GameObject obj)
@@ -68,12 +81,12 @@ public class GameController : MonoBehaviour
                 if (cardText.text == "Name1" && cardText2.text == "Name1")
                 {
                     Debug.Log("1 point");
+                    score++;
+                    scoreText.text = "Score: " + score; // Updates score UI
                     Destroy(cardOne);
                     Destroy(cardTwo);
                 }
             }
         }
-
-
     }
 }
